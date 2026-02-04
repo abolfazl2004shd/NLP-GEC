@@ -1,0 +1,9 @@
+fastapi==0.95.2
+uvicorn[standard]==0.22.0
+sentence-transformers==2.2.2
+numpy==1.26.2
+openai==1.7.0
+python-dotenv==1.0.0
+requests==2.31.0
+annoy==1.17.0
+faiss-cpu==1.7.4
