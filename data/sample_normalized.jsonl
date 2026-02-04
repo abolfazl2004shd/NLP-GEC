@@ -1,0 +1,3 @@
+{"metadata": {"dataset": "sample"}, "input": "She go to school yesterday.", "correction": "She went to school yesterday.", "error_spans": [], "error_type": null, "reasoning": ""}
+{"input": "He eat apple.", "correction": "He ate an apple.", "error_type": "VT", "error_spans": [], "reasoning": "", "metadata": {}}
+{"input": "This is a test.", "correction": "This is a test.", "error_type": null, "error_spans": [], "reasoning": "", "metadata": {}}

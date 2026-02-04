@@ -21,6 +21,7 @@ class VectorStore:
         self.path = path
         self.embeddings: np.ndarray | None = None
         self.items: List[Dict[str, Any]] = []
+        self.meta: Dict[str, Any] = {}
         self._index = None
 
     def _build_index(self):
@@ -67,7 +68,9 @@ class VectorStore:
 
     def save(self, path: str):
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        np.savez_compressed(path, embeddings=self.embeddings, items=json.dumps(self.items))
+        # include optional metadata
+        meta_str = json.dumps(self.meta) if getattr(self, "meta", None) is not None else json.dumps({})
+        np.savez_compressed(path, embeddings=self.embeddings, items=json.dumps(self.items), meta=meta_str)
 
     def load(self, path: str):
         if not os.path.exists(path):
@@ -75,4 +78,10 @@ class VectorStore:
         data = np.load(path, allow_pickle=True)
         self.embeddings = data["embeddings"]
         self.items = json.loads(str(data["items"].tolist()))
+        # load optional metadata if present
+        try:
+            meta_raw = data["meta"]
+            self.meta = json.loads(str(meta_raw.tolist()))
+        except Exception:
+            self.meta = {}
         self._build_index()

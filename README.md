@@ -19,6 +19,28 @@ uvicorn gec_service.api:app --reload --host 0.0.0.0 --port 8000
 ```
 
 API: POST /correct with JSON {"input": "sentence to correct"}
-
 See `gec_service` for implementation details.
+
+Dataset preparation & indexing
+
+1. Convert datasets to JSONL (one JSON object per line) with fields: `input`, `reasoning`, `correction`, `error_type`.
+
+	- CoNLL M2 -> JSONL using:
+
+```bash
+python scripts/prepare_datasets.py --m2 path/to/data.m2 --out support.jsonl
+```
+
+2. Precompute embeddings and build support index:
+
+```bash
+python precompute.py --in support.jsonl --out data/support_index.npz
+```
+
+3. Start the API and query `/correct`.
+
+Metrics & tools
+
+- Metrics endpoint: `GET /metrics` returns cache stats and support set size.
+- Evaluation: use `gec_service/eval_m2.py` to call external M2 scorer (gold vs system outputs).
 # NLP-GEC

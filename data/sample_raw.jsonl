@@ -1,0 +1,3 @@
+{"original": "She go to school yesterday.", "corrected": "She went to school yesterday.", "metadata": {"dataset": "sample"}}
+{"input": "He eat apple.", "correction": "He ate an apple.", "error_type": "VT"}
+{"input": "This is a test.", "correction": "This is a test.", "error_type": null}
